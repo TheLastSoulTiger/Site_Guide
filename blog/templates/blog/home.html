@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Блог Калининград</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
+    <link rel="icon" href="{% static 'blog/img/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+    <header class="header">
+        <div class="overlay">
+            <h1 class="title">Добро пожаловать в Блог Калининград</h1>
+            <p class="subtitle">Откройте для себя удивительные места и впечатления Калининградской области.</p>
+        </div>
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'post_list' %}">Посты</a></li>
+                <li><a href="{% url 'about' %}">О нас</a></li>
+                <li><a href="{% url 'contact' %}">Контакт</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="tours" class="mb-5">
+            <h2 class="text-center mb-4">Наши предложения</h2>
+            <div class="row">
+                {% for tour in tours %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <a href="{% url 'tour_detail' tour.id %}" class="tour-card-link">
+                        <div class="tour-card">
+                            <div class="tour-image">
+                               <img src="{{ tour.image.url }}" alt="{{ tour.title }}" class="tour-image">
+                            </div>
+                            <div class="tour-info">
+                                <h5 class="tour-title">{{ tour.title }}</h5>
+                                <p class="tour-description">{{ tour.description|truncatewords:15 }}</p>
+                                <p class="tour-duration">Длительность: {{ tour.duration }} дней</p>
+                                <p class="tour-departure">Дата выезда: {{ tour.departure_date }}</p>
+                                <div class="tour-footer">
+                                    <span class="tour-price">{{ tour.price }} руб.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        <section id="blog-posts" class="mb-5">
+            <h2 class="text-center mb-4">Последние посты</h2>
+            <ul class="list-group">
+                {% for post in posts %}
+                    <li class="list-group-item bg-dark text-light">
+                        <a class="text-primary" href="{% url 'post_detail' post.id %}">{{ post.title }}</a> - {{ post.created_date }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <section id="map" class="mb-5">
+            <h2 class="text-center mb-4">Интерактивная карта</h2>
+            <div class="map-container">
+                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3AYOUR_MAP_CONSTRUCTOR_ID&source=constructor" width="100%" height="400" frameborder="0"></iframe>
+            </div>
+        </section>
+        <p>© 2024 Блог Калининград. Все права защищены.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Funkcja blokująca scrollowanie mapy
+        function initMap() {
+            var map = new ymaps.Map("map", {
+                center: [54.7104, 20.4522], // współrzędne Kaliningradu
+                zoom: 10,
+                controls: []
+            });
+
+            // Wyłączenie możliwości scrollowania kółkiem myszy
+            map.behaviors.disable('scrollZoom');
+
+            // Funkcja włącza scrollowanie mapy po kliknięciu w nią
+            map.events.add('click', function () {
+                map.behaviors.enable('scrollZoom');
+            });
+
+            // Funkcja wyłącza scrollowanie mapy po opuszczeniu kursora z mapy
+            map.events.add('mouseleave', function () {
+                map.behaviors.disable('scrollZoom');
+            });
+
+            // Przykładowy znacznik
+            var placemark = new ymaps.Placemark([54.7104, 20.4522], {
+                balloonContent: 'Kaliningrad'
+            });
+            map.geoObjects.add(placemark);
+        }
+
+        ymaps.ready(initMap);
+    </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+    <title>{{ tour.title }} - Тур</title>
+    <meta name="description" content="Описание тура: {{ tour.short_description }}. Узнайте больше и забронируйте прямо сейчас!">
+    <meta name="keywords" content="туры, путешествия, Калининград, Россия, туризм, {{ tour.title }}">
+    <!-- Open Graph для ВКонтакте -->
+    <meta property="og:title" content="{{ tour.title }} - Тур">
+    <meta property="og:description" content="Описание тура: {{ tour.short_description }}. Узнайте больше и забронируйте прямо сейчас!">
+    <meta property="og:image" content="{{ tour.image.url }}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Ваш сайт">
+    <!-- Meta данные для Одноклассники -->
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <!-- Meta данные для Yandex -->
+    <meta name="yandex-verification" content="ваш_код_проверки">
+    <meta name="yandex:site-verification" content="ваш_код_проверки">
+    <!-- Другие существующие метаданные и стили -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="overlay">
+            <h1 class="title">{{ tour.title }}</h1>
+            <p class="subtitle">Особенности: {{ tour.short_description }}</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="mt-4">
+                    <a href="/" class="back-home-button">Вернуться на главную</a>
+                </div>
+                <div id="tourCarousel" class="carousel slide mb-4" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for image in tour.tour_images.all %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <img src="{{ image.image.url }}" class="d-block w-100" alt="...">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#tourCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#tourCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+                <h3>Описание</h3>
+                <p>{{ tour.description }}</p>
+
+                <h4>Маршрут</h4>
+                <p>{{ tour.route }}</p>
+
+                <!-- Sekcja: Что вас ожидает -->
+                <section id="details" class="mb-5">
+                    <h3>Что вас ожидает</h3>
+                    <ul class="expectations-list">
+                        <li>Ожидаемый пункт 1</li>
+                        <li>Ожидаемый пункт 2</li>
+                        <li>Ожидаемый пункт 3</li>
+                        <li>Ожидаемый пункт 4</li>
+                        <!-- Możesz dodać więcej punktów według potrzeby -->
+                    </ul>
+                </section>
+
+                <!-- Sekcja: Организационные детали -->
+                <section id="organizational-details" class="mb-5">
+                    <h3>Организационные детали</h3>
+                    <ul class="details-list">
+                        <li><strong>Место встречи:</strong> По договорённости с организатором. Вы можете обсудить его в заказе до предоплаты.</li>
+                        <li><strong>Остались вопросы?</strong> Задать вопрос организатору можно в заказе до предоплаты.</li>
+                        <li><strong>Условия бронирования:</strong></li>
+                        <ul class="booking-conditions">
+                            <li>Простой маршрут: 1500 ₽</li>
+                            <li>Дети до 16 лет: 500 ₽</li>
+                            <li>Средний маршрут: 2000 ₽</li>
+                            <li>Сложный маршрут: 3000 ₽</li>
+                            <li>Индивидуальный формат: Только для вас и вашей компании, 1–5 человек</li>
+                            <li>Предоплата 25%, остальное — на месте</li>
+                            <li>Бесплатная отмена за 48 часов</li>
+                        </ul>
+                        <li><strong>Доступные даты:</strong> Задать вопросы организатору можно в заказе до предоплаты.</li>
+                    </ul>
+                </section>
+            </div>
+
+            <div class="col-md-4">
+                <div class="tour-info">
+                    <h4>Цена: <span class="tour-price">{{ tour.price }} руб.</span></h4>
+                    <p><strong>Дата выезда:</strong> {{ tour.departure_date }}</p>
+                    <p><strong>Длительность:</strong> {{ tour.duration }} дней</p>
+                    <p><strong>Место отправления:</strong> {{ tour.starting_point }}</p>
+                </div>
+                <h4>Доступные даты</h4>
+                <div id="yandex-calendar">
+                    <p>Здесь будет отображаться календарь с доступными датами.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2024 Блог Калининград. Все права защищены.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

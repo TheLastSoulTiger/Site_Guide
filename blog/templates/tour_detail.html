@@ -4,11 +4,11 @@
 <head>
 <meta charset="UTF-8">
     <title>{{ tour.title }} - Тур</title>
-    <meta name="description" content="Описание тура: {{ tour.short_description }}. Узнайте больше и забронируйте прямо сейчас!">
+    <meta name="description" content="Описание тура: {{ tour.description }}. Узнайте больше и забронируйте прямо сейчас!">
     <meta name="keywords" content="туры, путешествия, Калининград, Россия, туризм, {{ tour.title }}">
     <!-- Open Graph для ВКонтакте -->
     <meta property="og:title" content="{{ tour.title }} - Тур">
-    <meta property="og:description" content="Описание тура: {{ tour.short_description }}. Узнайте больше и забронируйте прямо сейчас!">
+    <meta property="og:description" content="Описание тура: {{ tour.description }}. Узнайте больше и забронируйте прямо сейчас!">
     <meta property="og:image" content="{{ tour.image.url }}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:type" content="website">
@@ -75,38 +75,37 @@
                 </section>
 
                 <!-- Sekcja: Организационные детали -->
-                <section id="organizational-details" class="mb-5">
-                    <h3>Организационные детали</h3>
-                    <ul class="details-list">
-                        <li><strong>Место встречи:</strong> По договорённости с организатором. Вы можете обсудить его в заказе до предоплаты.</li>
-                        <li><strong>Остались вопросы?</strong> Задать вопрос организатору можно в заказе до предоплаты.</li>
-                        <li><strong>Условия бронирования:</strong></li>
-                        <ul class="booking-conditions">
-                            <li>Простой маршрут: 1500 ₽</li>
-                            <li>Дети до 16 лет: 500 ₽</li>
-                            <li>Средний маршрут: 2000 ₽</li>
-                            <li>Сложный маршрут: 3000 ₽</li>
-                            <li>Индивидуальный формат: Только для вас и вашей компании, 1–5 человек</li>
-                            <li>Предоплата 25%, остальное — на месте</li>
-                            <li>Бесплатная отмена за 48 часов</li>
-                        </ul>
-                        <li><strong>Доступные даты:</strong> Задать вопросы организатору можно в заказе до предоплаты.</li>
+                <section class="organizational-details" class="mb-5">
+                    <h2>Организационные детали</h2>
+                    <p>Место встречи: {{ tour.meeting_place }}</p>
+                    <p>Условия бронирования:</p>
+                    <ul>
+                        {% for condition in tour.booking_conditions %}
+                            <li>{{ condition }}</li>
+                        {% endfor %}
                     </ul>
+                    <p>Доступные даты:</p>
+                    <ul>
+                        {% for date in tour.available_dates %}
+                            <li>{{ date }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p class="note">Задать вопросы организатору можно в заказе до предоплаты.</p>
                 </section>
-            </div>
+                        </div>
 
-            <div class="col-md-4">
-                <div class="tour-info">
-                    <h4>Цена: <span class="tour-price">{{ tour.price }} руб.</span></h4>
-                    <p><strong>Дата выезда:</strong> {{ tour.departure_date }}</p>
-                    <p><strong>Длительность:</strong> {{ tour.duration }} дней</p>
-                    <p><strong>Место отправления:</strong> {{ tour.starting_point }}</p>
-                </div>
-                <h4>Доступные даты</h4>
-                <div id="yandex-calendar">
-                    <p>Здесь будет отображаться календарь с доступными датами.</p>
-                </div>
-            </div>
+                        <div class="col-md-4">
+                            <div class="tour-info">
+                                <h4>Цена: <span class="tour-price">{{ tour.price }} руб.</span></h4>
+                                <p><strong>Дата выезда:</strong> {{ tour.departure_date }}</p>
+                                <p><strong>Длительность:</strong> {{ tour.duration }} дней</p>
+                                <p><strong>Место отправления:</strong> {{ tour.starting_point }}</p>
+                            </div>
+                            <h4>Доступные даты</h4>
+                            <div id="yandex-calendar">
+                                <p>Здесь будет отображаться календарь с доступными датами.</p>
+                            </div>
+                        </div>
         </div>
     </div>
 

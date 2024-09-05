@@ -1,6 +1,7 @@
 from django import forms
 from .models import Post
 from .models import Review
+from .models import Tour
 
 
 class PostForm(forms.ModelForm):
@@ -20,6 +21,13 @@ class ContactForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
 
+class TourForm(forms.ModelForm):
+    class Meta:
+        model = Tour
+        fields = ['title', 'description', 'organizational_details']  # lub wymień konkretne pola, które chcesz uwzględnić
+        widgets = {
+            'short_description': forms.TextInput(attrs={'maxlength': '100'}),
+        }
 
 # class TourForm(forms.ModelForm):
 #     class Meta:

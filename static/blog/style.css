@@ -165,8 +165,12 @@ border:1px solid #00ff7f
 }
 
 h2 {
-color:#00ff7f;
+color:#ffffff;
 margin:0 0 20px
+}
+
+h5 {
+color:#1c1c1c;
 }
 
 .card:hover {
@@ -311,7 +315,10 @@ color:#ccc
 }
 
 .tour-card {
-background:#444
+    background:#444
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .tour-card:hover {
@@ -338,6 +345,9 @@ padding:10px;
 text-align:center;
 font-size:1.2em;
 font-weight:700
+}
+.tour-card-footer{
+margin-top: auto;
 }
 
 #blog-posts h2 {
@@ -526,11 +536,35 @@ border:none
 .tour-card {
     display: flex;
     flex-direction: column;
+    height: 100%;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tour-image {
+    height: 200px;
+    object-fit: cover;
+}
+
+.tour-info {
+    flex: 1;
+    padding: 20px;
+}
+
+.tour-card-footer {
+    margin-top: auto;
+    padding: 15px;
+    background-color: #444;
+    color: #fff;
+}
+
+.tour-price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #e74c3c;
+    text-align: center;
 }
 
 .tour-card-link {
@@ -584,6 +618,12 @@ border:none
     padding: 20px;
     border-radius: 5px;
     margin-bottom: 20px;
+    min-height: 300px;
+}
+
+.tour-container {
+    display: flex;
+    align-items: stretch; /* Wyrówna elementy do jednakowej wysokości */
 }
 
 .tour-title {
@@ -727,10 +767,16 @@ border:none
     .map-container {
     pointer-events: none; /* Blokuje interakcję z mapą */
   }
+  .tour-info, .tour-image {
+    flex: 0;
+  }
 }
 
 @media (max-width: 1199px) {
   .map {
     display: none;
+  }
+  .tour-container {
+    flex-direction: column;
   }
 }

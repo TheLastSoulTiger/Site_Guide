@@ -9,7 +9,8 @@ class Tour(models.Model):
     title = models.CharField(max_length=255)
     short_description = models.CharField(max_length=100, blank=True)
     description = models.TextField(default="")
-    route = RichTextField(default="")  # Formatowalny tekst "Что вас ожидает"
+    expectations = RichTextField(blank=True, null=True)
+    # route = RichTextField(default="")  # Formatowalny tekst "Что вас ожидает"
     price = models.DecimalField(max_digits=10, decimal_places=2)
     departure_date = models.DateField(default=timezone.now)  # Możesz usunąć, jeśli to zbędne
     duration = models.IntegerField(default=1)

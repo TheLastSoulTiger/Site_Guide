@@ -59,19 +59,13 @@
                 <h3>Описание</h3>
                 <p>{{ tour.description }}</p>
 
-                <h4>Маршрут</h4>
-                <p>{{ tour.route }}</p>
 
                 <!-- Sekcja: Что вас ожидает -->
                 <section id="details" class="mb-5">
-                    <h3>Что вас ожидает</h3>
-                    <ul class="expectations-list">
-                        <li>Ожидаемый пункт 1</li>
-                        <li>Ожидаемый пункт 2</li>
-                        <li>Ожидаемый пункт 3</li>
-                        <li>Ожидаемый пункт 4</li>
-                        <!-- Możesz dodać więcej punktów według potrzeby -->
-                    </ul>
+                    <h5>Что вас ожидает</h5>
+                    <div class="expectations-list">
+                        {{ tour.expectations|safe }}
+                    </div>
                 </section>
 
                 <!-- Sekcja: Организационные детали -->

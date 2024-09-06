@@ -17,7 +17,7 @@ class TourAdmin(admin.ModelAdmin):
     inlines = [TourImageInline]
     list_display = ('title', 'short_description', 'created_at')  # Usunięto meeting_place i tour_description
     search_fields = ('title',)
-    fields = ('title', 'short_description', 'description', 'route', 'price', 'duration', 'starting_point', 'image', 'organizational_details')  # tour_description zamienione na description
+    fields = ('title', 'short_description', 'description', 'expectations', 'price', 'duration', 'starting_point', 'image', 'organizational_details')  # tour_description zamienione na description
     form = TourForm
     formfield_overrides = {
         RichTextField: {'widget': CKEditorWidget()},
@@ -30,9 +30,9 @@ class TourAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Używamy CKEditor dla organizational_details oraz route (sekcja: "Что вас ожидает")
+        # Używamy CKEditor dla organizational_details oraz expectations (sekcja: "Что вас ожидает")
         self.fields['organizational_details'].widget = CKEditorWidget()
-        self.fields['route'].widget = CKEditorWidget()  # Jeśli chcesz formatować marzrutę
+        self.fields['expectations'].widget = CKEditorWidget()  # Jeśli chcesz formatować marzrutę
 
 class TourAdmin(admin.ModelAdmin):
     form = TourAdminForm
@@ -44,14 +44,14 @@ class TourAdmin(admin.ModelAdmin):
         'title',
         'short_description',
         'description',
-        'route',  # Секция: "Что вас ожидает"
+        'expectations',  # Секция: "Что вас ожидает"
         'price',
         'duration',
         'starting_point',  # Możliwość dodawania linków
         'image',  # Główne zdjęcie
         'organizational_details',  # Szczegóły organizacyjne z CKEditor
     )
-    search_fields = ('title', 'description', 'route')  # Zaktualizuj według potrzeb
+    search_fields = ('title', 'description', 'expectations')  # Zaktualizuj według potrzeb
 
     # Konfiguracja dla CKEditor
     formfield_overrides = {

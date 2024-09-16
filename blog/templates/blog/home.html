@@ -13,11 +13,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
     <link rel="icon" href="{% static 'blog/img/favicon.ico' %}" type="image/x-icon">
+
 </head>
 <body>
     <header class="header">
         <div class="overlay">
-            <h1 class="title">Добро пожаловать в Блог Калининград</h1>
+            <h1 class="title">Личный гид</h1>
             <p class="subtitle">Откройте для себя удивительные места и впечатления Калининградской области.</p>
         </div>
         <nav class="navbar">
@@ -82,36 +83,38 @@
 
         <!-- Bootstrap 5 JS Bundle (zawiera Popper.js) -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Funkcja blokująca scrollowanie mapy
-        function initMap() {
-            var map = new ymaps.Map("map", {
-                center: [54.7104, 20.4522], // współrzędne Kaliningradu
-                zoom: 10,
-                controls: []
-            });
-
-            // Wyłączenie możliwości scrollowania kółkiem myszy
-            map.behaviors.disable('scrollZoom');
-
-            // Funkcja włącza scrollowanie mapy po kliknięciu w nią
-            map.events.add('click', function () {
-                map.behaviors.enable('scrollZoom');
-            });
-
-            // Funkcja wyłącza scrollowanie mapy po opuszczeniu kursora z mapy
-            map.events.add('mouseleave', function () {
+        <script>
+            // Funkcja blokująca scrollowanie mapy
+            function initMap() {
+                var map = new ymaps.Map("map", {
+                    center: [54.7104, 20.4522],
+                    zoom: 10,
+                    controls: []
+                });
+        
+                var mapHint = document.getElementById('map-hint');
+        
+                // Wyłączenie scrollowania dla wszystkich urządzeń
                 map.behaviors.disable('scrollZoom');
-            });
-
-            // Przykładowy znacznik
-            var placemark = new ymaps.Placemark([54.7104, 20.4522], {
-                balloonContent: 'Kaliningrad'
-            });
-            map.geoObjects.add(placemark);
-        }
-
-        ymaps.ready(initMap);
-    </script>
+        
+                // Obsługa kliknięcia myszą (desktop) oraz dotyku (mobile)
+                map.events.add(['click', 'touchstart'], function () {
+                    map.behaviors.enable('scrollZoom');
+                    mapHint.style.display = 'none';
+                });
+        
+                map.events.add('mouseleave', function () {
+                    map.behaviors.disable('scrollZoom');
+                    mapHint.style.display = 'block';
+                });
+        
+                var placemark = new ymaps.Placemark([54.7104, 20.4522], {
+                    balloonContent: 'Kaliningrad'
+                });
+                map.geoObjects.add(placemark);
+            }
+        
+            ymaps.ready(initMap);
+        </script>
 </body>
 </html>

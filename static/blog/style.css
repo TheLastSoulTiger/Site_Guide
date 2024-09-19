@@ -698,7 +698,7 @@ h1 {
 .expectations-list,
 .details-list {
     list-style: none;
-    padding-left: 0
+    padding-left: 15px
 }
 
 .expectations-list li,
@@ -788,5 +788,8 @@ h1 {
 
     .tour-container {
         flex-direction: column
+    }
+    .nav-menu {
+        display: ruby;
     }
 }

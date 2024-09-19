@@ -28,7 +28,7 @@
     <header class="header">
         <div class="overlay">
             <h1 class="title">{{ tour.title }}</h1>
-            <p class="subtitle">Особенности: {{ tour.short_description }}</p>
+            <p class="subtitle">{{ tour.short_description }}</p>
         </div>
     </header>
 
@@ -62,7 +62,7 @@
 
                 <!-- Sekcja: Что вас ожидает -->
                 <section id="details" class="mb-5">
-                    <h5>Что вас ожидает</h5>
+                    <h3>Что вас ожидает</h3>
                     <div class="expectations-list">
                         {{ tour.expectations|safe }}
                     </div>

@@ -4,39 +4,55 @@ from django import forms
 from ckeditor.fields import RichTextField
 import datetime
 
+class Tag(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 class Tour(models.Model):
+    TOUR_TYPE_CHOICES = [
+        ('bike', 'На вело'),
+        ('car', 'На машине'),
+        ('other', 'Иной странспорт'),
+        ('walk', 'Пешком'),
+        ('boat', 'На лодке')
+    ]
+    
     title = models.CharField(max_length=255)
     short_description = models.CharField(max_length=100, blank=True)
     description = models.TextField(default="")
     expectations = RichTextField(blank=True, null=True)
-    # route = RichTextField(default="")  # Formatowalny tekst "Что вас ожидает"
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    departure_date = models.DateField(default=timezone.now)  # Możesz usunąć, jeśli to zbędne
+    departure_date = models.DateField(default=timezone.now)
     duration = models.IntegerField(default=1)
     starting_point = models.CharField(max_length=200, default="")
     image = models.ImageField(upload_to='tours/')
-    organizational_details = RichTextField(blank=True, null=True)  # Szczegóły organizacyjne
-    available_dates = models.JSONField(default=list, blank=True)  # Jeśli później będziesz integrować z kalendarzem
+    organizational_details = RichTextField(blank=True, null=True)
+    available_dates = models.JSONField(default=list, blank=True)
+    tour_type = models.CharField(max_length=10, choices=TOUR_TYPE_CHOICES, default='other')  # Usunięto Tag
 
+    included_in_price = RichTextField(blank=True, null=True)
+    extra_charges = RichTextField(blank=True, null=True)
+    notes = RichTextField(blank=True, null=True)
+    
     def __str__(self):
         return self.title
 
 class TourForm(forms.ModelForm):
     class Meta:
         model = Tour
-        fields = ['title', 'short_description']
+        fields = ['title', 'short_description', 'tour_type']  # Dodane pole tour_type do formularza
         widgets = {
             'short_description': forms.TextInput(attrs={'maxlength': '100'}),
         }
 
 class TourImage(models.Model):
     image = models.ImageField(upload_to='tour_images/')
-    tour = models.ForeignKey(Tour, related_name='tour_images', on_delete=models.CASCADE)  # Added related_name
+    tour = models.ForeignKey(Tour, related_name='tour_images', on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Image for {self.tour.title}"
-
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
@@ -45,7 +61,6 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
 
 class Review(models.Model):
     name = models.CharField(max_length=100)

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Tour
+from .models import Post, Tour, Tag
 from .forms import PostForm
 from .forms import ReviewForm
 from .forms import ContactForm
@@ -21,10 +21,29 @@ def post_detail(request, id):
 
 
 def home(request):
+    # Pobieranie postów
     posts = Post.objects.order_by('-created_date')[:3]
-    tours = Tour.objects.all()  # Dodajemy wycieczki
-    return render(request, 'blog/home.html', {'posts': posts, 'tours': tours})
-
+    
+    # Pobieranie ID wybranego tagu z zapytania GET
+    tag_id = request.GET.get('tag')
+    
+    # Filtrowanie wycieczek na podstawie wybranego tagu, jeśli wybrano tag
+    if tag_id:
+        tours = Tour.objects.filter(tags__id=tag_id)
+    else:
+        tours = Tour.objects.all()
+    
+    # Pobieranie wszystkich tagów do formularza
+    tags = Tag.objects.all()
+    
+    # Przekazywanie postów, wycieczek oraz tagów do szablonu
+    context = {
+        'posts': posts,
+        'tours': tours,
+        'tags': tags,
+    }
+    
+    return render(request, 'blog/home.html', context)
 
 def post_new(request):
     if request.method == "POST":

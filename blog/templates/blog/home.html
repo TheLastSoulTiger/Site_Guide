@@ -34,15 +34,31 @@
     <div class="container">
         <section id="tours" class="mb-5">
             <h2 class="text-center mb-4">Наши предложения</h2>
+    
+            <!-- Formularz do filtrowania wycieczek po tagach -->
+            <form method="GET" action="" class="mb-4">
+                <label for="tag" class="form-label">Wybierz typ wycieczki:</label>
+                <div class="input-group">
+                    <select name="tag" id="tag" class="form-select">
+                        <option value="">Все</option>
+                        {% for value, label in TOUR_TYPE_CHOICES %}
+                        <option value="{{ value }}" {% if request.GET.tour_type == value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-primary">Принять</button>
+                </div>
+            </form>
+    
+            <!-- Lista wycieczek -->
             <div class="row">
                 {% for tour in tours %}
                 <div class="col-md-6 col-lg-4 mb-4">
                     <a href="{% url 'tour_detail' tour.id %}" class="tour-card-link">
                         <div class="tour-card">
                             <div class="tour-image">
-                               <img src="{{ tour.image.url }}" alt="{{ tour.title }}" class="tour-image">
+                                <img src="{{ tour.image.url }}" alt="{{ tour.title }}" class="tour-image img-fluid">
                             </div>
-                            <div class="tour-info">
+                            <div class="tour-info p-3">
                                 <h5 class="tour-title">{{ tour.title }}</h5>
                                 <p class="tour-description">{{ tour.description|truncatewords:15 }}</p>
                                 <p class="tour-duration">Длительность: {{ tour.duration }} дней</p>
@@ -57,6 +73,8 @@
                 {% endfor %}
             </div>
         </section>
+    
+        <!-- Sekcja z ostatnimi postami -->
         <section id="blog-posts" class="mb-5">
             <h2 class="text-center mb-4">Последние посты</h2>
             <ul class="list-group">

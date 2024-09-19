@@ -24,7 +24,7 @@ class ContactForm(forms.Form):
 class TourForm(forms.ModelForm):
     class Meta:
         model = Tour
-        fields = ['title', 'description', 'organizational_details']  # lub wymień konkretne pola, które chcesz uwzględnić
+        fields = ['title', 'description', 'organizational_details', 'tour_type']  # lub wymień konkretne pola, które chcesz uwzględnić
         widgets = {
             'short_description': forms.TextInput(attrs={'maxlength': '100'}),
         }

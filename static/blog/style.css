@@ -679,8 +679,8 @@ h1 {
     color: #777
 }
 
-#details,
-#organizational-details {
+.details,
+.organizational-details {
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 4px;
@@ -688,8 +688,8 @@ h1 {
     margin-bottom: 1rem !important;
 }
 
-#details h3,
-#organizational-details h3 {
+.details h3,
+.organizational-details h3 {
     font-size: 1.5rem;
     margin-bottom: 15px;
     color: #333

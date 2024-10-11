@@ -10,17 +10,17 @@ class Tour(models.Model):
     short_description = models.CharField(max_length=100, blank=True)
     description = models.TextField(default="")
     expectations = RichTextField(blank=True, null=True)
-    # route = RichTextField(default="")  # Formatowalny tekst "Что вас ожидает"
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    departure_date = models.DateField(default=timezone.now)  # Możesz usunąć, jeśli to zbędne
+    departure_date = models.DateField(default=timezone.now)
     duration = models.IntegerField(default=1)
     starting_point = models.CharField(max_length=200, default="")
     image = models.ImageField(upload_to='tours/')
-    organizational_details = RichTextField(blank=True, null=True)  # Szczegóły organizacyjne
-    available_dates = models.JSONField(default=list, blank=True)  # Jeśli później będziesz integrować z kalendarzem
+    organizational_details = RichTextField(blank=True, null=True)
+    available_dates = models.JSONField(default=list, blank=True)
 
     def __str__(self):
         return self.title
+
 
 class TourForm(forms.ModelForm):
     class Meta:
@@ -30,9 +30,10 @@ class TourForm(forms.ModelForm):
             'short_description': forms.TextInput(attrs={'maxlength': '100'}),
         }
 
+
 class TourImage(models.Model):
     image = models.ImageField(upload_to='tour_images/')
-    tour = models.ForeignKey(Tour, related_name='tour_images', on_delete=models.CASCADE)  # Added related_name
+    tour = models.ForeignKey(Tour, related_name='tour_images', on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Image for {self.tour.title}"

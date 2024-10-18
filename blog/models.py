@@ -4,8 +4,21 @@ from django import forms
 from ckeditor.fields import RichTextField
 import datetime
 
+class Tag(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 class Tour(models.Model):
+    TOUR_TYPE_CHOICES = [
+        ('bike', 'На вело'),
+        ('car', 'На машине'),
+        ('other', 'Иной странспорт'),
+        ('walk', 'Пешком'),
+        ('boat', 'На лодке')
+    ]
+    
     title = models.CharField(max_length=255)
     short_description = models.CharField(max_length=100, blank=True)
     description = models.TextField(default="")
@@ -17,7 +30,15 @@ class Tour(models.Model):
     image = models.ImageField(upload_to='tours/')
     organizational_details = RichTextField(blank=True, null=True)
     available_dates = models.JSONField(default=list, blank=True)
+<<<<<<< HEAD
+    tour_type = models.CharField(max_length=10, choices=TOUR_TYPE_CHOICES, default='other')  # Usunięto Tag
+=======
+>>>>>>> 3c65921aacb3d313e5f31c0a5c83d4e3226e09e5
 
+    included_in_price = RichTextField(blank=True, null=True)
+    extra_charges = RichTextField(blank=True, null=True)
+    notes = RichTextField(blank=True, null=True)
+    
     def __str__(self):
         return self.title
 
@@ -25,7 +46,7 @@ class Tour(models.Model):
 class TourForm(forms.ModelForm):
     class Meta:
         model = Tour
-        fields = ['title', 'short_description']
+        fields = ['title', 'short_description', 'tour_type']  # Dodane pole tour_type do formularza
         widgets = {
             'short_description': forms.TextInput(attrs={'maxlength': '100'}),
         }
@@ -38,7 +59,6 @@ class TourImage(models.Model):
     def __str__(self):
         return f"Image for {self.tour.title}"
 
-
 class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
@@ -46,7 +66,6 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
 
 class Review(models.Model):
     name = models.CharField(max_length=100)

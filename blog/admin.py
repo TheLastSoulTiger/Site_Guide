@@ -1,7 +1,7 @@
 from ckeditor.fields import RichTextField
 from ckeditor.widgets import CKEditorWidget
 from django.contrib import admin
-from .models import Post, Tour, TourImage, TourForm
+from .models import Post, Tour, TourImage, TourForm, Tag
 from django import forms
 
 
@@ -12,16 +12,6 @@ class PostAdmin(admin.ModelAdmin):
 class TourImageInline(admin.TabularInline):
     model = TourImage
     extra = 1
-
-class TourAdmin(admin.ModelAdmin):
-    inlines = [TourImageInline]
-    list_display = ('title', 'short_description', 'created_at')  # Usunięto meeting_place i tour_description
-    search_fields = ('title',)
-    fields = ('title', 'short_description', 'description', 'expectations', 'price', 'duration', 'starting_point', 'image', 'organizational_details')  # tour_description zamienione na description
-    form = TourForm
-    formfield_overrides = {
-        RichTextField: {'widget': CKEditorWidget()},
-    }
 
 class TourAdminForm(forms.ModelForm):
     class Meta:
@@ -38,8 +28,8 @@ class TourAdmin(admin.ModelAdmin):
     form = TourAdminForm
     inlines = [TourImageInline]
     # Pola, które mają być widoczne w liście widoku w adminie
-    list_display = ('title', 'short_description', 'price', 'duration', 'starting_point')
-    # Pola dostępne w widoku edycji
+    list_display = ('title', 'short_description', 'price', 'duration', 'starting_point', 'tour_type')
+    # Pola dostępne w widoku edycji, w tym dodane 'tour_type'
     fields = (
         'title',
         'short_description',
@@ -50,8 +40,11 @@ class TourAdmin(admin.ModelAdmin):
         'starting_point',  # Możliwość dodawania linków
         'image',  # Główne zdjęcie
         'organizational_details',  # Szczegóły organizacyjne z CKEditor
+        'included_in_price',
+        'additional_fees',
+        'notes',
     )
-    search_fields = ('title', 'description', 'expectations')  # Zaktualizuj według potrzeb
+    search_fields = ('title', 'description', 'expectations', 'tour_type')  # Dodano możliwość wyszukiwania według typu wycieczki
 
     # Konfiguracja dla CKEditor
     formfield_overrides = {
@@ -60,3 +53,4 @@ class TourAdmin(admin.ModelAdmin):
 
 admin.site.register(Tour, TourAdmin)
 admin.site.register(Post, PostAdmin)
+    

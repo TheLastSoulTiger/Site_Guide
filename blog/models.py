@@ -30,11 +30,8 @@ class Tour(models.Model):
     image = models.ImageField(upload_to='tours/')
     organizational_details = RichTextField(blank=True, null=True)
     available_dates = models.JSONField(default=list, blank=True)
-<<<<<<< HEAD
+    additional_fees = RichTextField(blank=True, null=True)
     tour_type = models.CharField(max_length=10, choices=TOUR_TYPE_CHOICES, default='other')  # Usunięto Tag
-=======
->>>>>>> 3c65921aacb3d313e5f31c0a5c83d4e3226e09e5
-
     included_in_price = RichTextField(blank=True, null=True)
     extra_charges = RichTextField(blank=True, null=True)
     notes = RichTextField(blank=True, null=True)

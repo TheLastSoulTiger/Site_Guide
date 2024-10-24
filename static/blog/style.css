@@ -211,6 +211,7 @@ form .form-control:focus {
     border: 1px solid #00ff7f
 }
 
+
 h2 {
     color: #fff !important;
     margin: 0 0 20px
@@ -603,6 +604,20 @@ h1 {
     /* usuwa ewentualne obramowanie */
 }
 
+.tour-info-block {
+    border-radius: 12px; /* Apple-like smooth borders */
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border: 1px solid #302f2f; /* Light border to define the block */
+}
+.tour-info-block h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
 .tour-container {
     display: flex;
     align-items: stretch
@@ -704,6 +719,35 @@ h1 {
     font-weight: bold;
     color: #ff7f00; /* Kolor liczników */
     padding-right: 10px;
+}
+
+.included-in-price {
+    background-color: #f9f9f9; /* Similar background */
+    padding: 15px;
+    border-radius: 10px; /* Border radius for Apple-inspired design */
+    margin-bottom: 20px;
+    color:rgb(0, 0, 0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Styles for "additional-fees" */
+.additional-fees {
+    background-color: #f9f9f9; /* Same as above for consistency */
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color:rgb(0, 0, 0);
+}
+
+/* Styles for "notes" */
+.notes {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color:rgb(0, 0, 0);
 }
 
 .details-list strong {

@@ -30,14 +30,15 @@ class Tour(models.Model):
     image = models.ImageField(upload_to='tours/')
     organizational_details = RichTextField(blank=True, null=True)
     available_dates = models.JSONField(default=list, blank=True)
+    additional_fees = RichTextField(blank=True, null=True)
     tour_type = models.CharField(max_length=10, choices=TOUR_TYPE_CHOICES, default='other')  # Usunięto Tag
-
     included_in_price = RichTextField(blank=True, null=True)
     extra_charges = RichTextField(blank=True, null=True)
     notes = RichTextField(blank=True, null=True)
     
     def __str__(self):
         return self.title
+
 
 class TourForm(forms.ModelForm):
     class Meta:
@@ -46,6 +47,7 @@ class TourForm(forms.ModelForm):
         widgets = {
             'short_description': forms.TextInput(attrs={'maxlength': '100'}),
         }
+
 
 class TourImage(models.Model):
     image = models.ImageField(upload_to='tour_images/')

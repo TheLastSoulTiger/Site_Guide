@@ -34,102 +34,83 @@
 
     <div class="container">
         <div class="row">
+            <!-- Kolumna z karuzelą i przyciskiem powrotu -->
             <div class="col-md-8">
-                <div class="mt-4">
+                <div class="carousel-container mt-4">
                     <a href="/" class="back-home-button"></a>
-                </div>
-                <div id="tourCarousel" class="carousel slide mb-4" data-ride="carousel">
-                    <div class="carousel-inner">
-                        {% for image in tour.tour_images.all %}
-                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                <img src="{{ image.image.url }}" class="d-block w-100" alt="...">
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <a class="carousel-control-prev" href="#tourCarousel" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#tourCarousel" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-
-                <h3>Описание</h3>
-                <p>{{ tour.description }}</p>
-
-
-                <!-- Sekcja: Что вас ожидает -->
-                <section id="details" class="mb-5">
-                    <h3>Что вас ожидает</h3>
-                    <div class="expectations-list">
-                        {{ tour.expectations|safe }}
-                    </div>
-                </section>
-
-                <section id="price-included" class="mb-5">
-                    <h3>В стоимость входит</h3>
-                    <div class="included-in-price">
-                        {{ tour.included_in_price|safe }}
-                    </div>
-                </section>
-                
-                <section id="additional-fees" class="mb-5">
-                    <h3>Дополнительно оплачивается</h3>
-                    <div class="additional-fees">
-                        {{ tour.additional_fees|safe }}
-                    </div>
-                </section>
-                
-                <section id="notes" class="mb-5">
-                    <h3>Примечание</h3>
-                    <div class="notes">
-                        {{ tour.notes|safe }}
-                    </div>
-                </section>
-
-                <!-- Sekcja: Организационные детали -->
-{% comment %}                 <section class="organizational-details" class="mb-5">
-                    <h2>Организационные детали</h2>
-                    <p>Место встречи: {{ tour.meeting_place }}</p>
-                    <p>Условия бронирования:</p>
-                    <ul>
-                        {% for condition in tour.booking_conditions %}
-                            <li>{{ condition }}</li>
-                        {% endfor %}
-                    </ul>
-                    <p>Доступные даты:</p>
-                    <ul>
-                        {% for date in tour.available_dates %}
-                            <li>{{ date }}</li>
-                        {% endfor %}
-                    </ul>
-                    <p class="note">Задать вопросы организатору можно в заказе до предоплаты.</p>
-                </section> {% endcomment %}
+                    <div id="tourCarousel" class="carousel slide mb-4" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for image in tour.tour_images.all %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ image.image.url }}" class="d-block w-100" alt="...">
+                                </div>
+                            {% endfor %}
                         </div>
-
-                        <div class="col-md-4">
-                            <div class="tour-info">
-                                <h4>Цена: <span class="tour-price">{{ tour.price }} руб.</span></h4>
-                                <p><strong>Дата выезда:</strong> {{ tour.departure_date }}</p>
-                                <p><strong>Длительность:</strong> {{ tour.duration }} дней</p>
-                                <p><strong>Место отправления:</strong> {{ tour.starting_point }}</p>
-                            </div>
-                            <h4>Доступные даты</h4>
-                            <div id="yandex-calendar">
-                                <p>Здесь будет отображаться календарь с доступными датами.</p>
-                            </div>
+                        <a class="carousel-control-prev" href="#tourCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#tourCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+    
+                    <h3>Описание</h3>
+                    <p>{{ tour.description }}</p>
+    
+                    <section id="details" class="mb-5 tour-info-block">
+                        <h3>Что вас ожидает</h3>
+                        <div class="expectations-list">
+                            {{ tour.expectations|safe }}
                         </div>
+                    </section>
+    
+                    <section id="price-included" class="mb-5 tour-info-block">
+                        <h3>В стоимость входит</h3>
+                        <div class="included-in-price">
+                            {{ tour.included_in_price|safe }}
+                        </div>
+                    </section>
+    
+                    <section id="additional-fees" class="mb-5 tour-info-block">
+                        <h3>Дополнительно оплачивается</h3>
+                        <div class="additional-fees">
+                            {{ tour.additional_fees|safe }}
+                        </div>
+                    </section>
+    
+                    <section id="notes" class="mb-5 tour-info-block">
+                        <h3>Примечание</h3>
+                        <div class="notes">
+                            {{ tour.notes|safe }}
+                        </div>
+                    </section>
+                </div>
+            </div>
+    
+            <!-- Kolumna z informacjami o turze po prawej stronie -->
+            <div class="col-md-4">
+                <div class="tour-info">
+                    <h4>Цена: <span class="tour-price">{{ tour.price }} руб.</span></h4>
+                    <p><strong>Дата выезда:</strong> {{ tour.departure_date }}</p>
+                    <p><strong>Длительность:</strong> {{ tour.duration }} дней</p>
+                    <p><strong>Место отправления:</strong> {{ tour.starting_point }}</p>
+                </div>
+                <h4>Доступные даты</h4>
+                <div id="yandex-calendar">
+                    <p>Здесь будет отображаться календарь с доступными датами.</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <footer class="footer">
-        <p>© 2024 Блог Калининград. Все права защищены.</p>
-    </footer>
+<footer class="footer">
+    <p>© 2024 Блог Калининград. Все права защищены.</p>
+</footer>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -211,6 +211,7 @@ form .form-control:focus {
     border: 1px solid #00ff7f
 }
 
+
 h2 {
     color: #fff !important;
     margin: 0 0 20px
@@ -367,12 +368,7 @@ h1 {
     transform: translateY(-10px)
 }
 
-.tour-card img {
-    max-width: 100%;
-    border-bottom: 5px solid #f90;
-    height: 200px;
-    object-fit: cover
-}
+
 
 .tour-card .tour-title {
     font-size: 1.5em;
@@ -580,7 +576,13 @@ h1 {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 4px
+    border-bottom: 5px solid #f90;
+    height: 200px;
+    object-fit: cover;
+}
+
+.carousel-inner {
+    border-radius: 12px;
 }
 
 .tour-info {
@@ -601,6 +603,20 @@ h1 {
     /* brak podkreślenia na hover */
     outline: none;
     /* usuwa ewentualne obramowanie */
+}
+
+.tour-info-block {
+    padding: 15px;
+    border-radius: 12px; /* Styl Apple */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    border: 1px solid #6b6b6b;
+}
+
+.tour-info-block h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
 .tour-container {
@@ -706,6 +722,35 @@ h1 {
     padding-right: 10px;
 }
 
+.included-in-price {
+    background-color: #f9f9f9; /* Similar background */
+    padding: 15px;
+    border-radius: 10px; /* Border radius for Apple-inspired design */
+    margin-bottom: 20px;
+    color:rgb(0, 0, 0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Styles for "additional-fees" */
+.additional-fees {
+    background-color: #f9f9f9; /* Same as above for consistency */
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color:rgb(0, 0, 0);
+}
+
+/* Styles for "notes" */
+.notes {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color:rgb(0, 0, 0);
+}
+
 .details-list strong {
     color: #000;
     font-weight: 600
@@ -755,25 +800,28 @@ h1 {
 
 .back-home-button {
     left: 15px;
-    top: 0px;
+    top: 15px; /* Ustawienie przy górnej części karuzeli */
     display: inline-block;
     position: absolute;
-    bottom: 20px;
-    right: 20px;
     width: 0;
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
-    border-right: 15px solid #fff; /* Kolor strzałki */
-    z-index: 1000; /* Aby przycisk był nad innymi elementami */
+    border-right: 15px solid #fff; /* Oryginalny kolor */
+    z-index: 1000;
     cursor: pointer;
     transition: border-right-color 0.3s ease, transform 0.3s ease;
 }
 
 .back-home-button:hover {
-    border-right-color: #ff7f00; /* Zmiana koloru po najechaniu */
-    transform: scale(1.2); /* Delikatne powiększenie po najechaniu */
+    border-right-color: #ff7f00; /* Kolor po najechaniu */
+    transform: scale(1.2);
 }
+
+.carousel-container {
+    position: relative;
+}
+
 
 /* Map styles */
 @media (min-width: 1200px) {

@@ -33,7 +33,7 @@ ul {
 
 .tour-card img {
     max-width: 100%;
-    border-radius: 4px
+    /* border-radius: 4px */
 }
 
 .tour-info-block h3 {
@@ -526,7 +526,7 @@ h5 {
     flex-direction: column;
     height: 100%;
     background-color: #fff;
-    border-radius: 4px;
+    border-radius: 25px;
     box-shadow: 0 4px 12px #0000001a;
     overflow: hidden
 }
@@ -536,7 +536,6 @@ h5 {
     flex: 1 1 calc(33.333% - 10px);
     max-width: 100%;
     height: auto;
-    border-radius: 4px
 }
 
 .tour-card-footer {

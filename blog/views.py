@@ -25,6 +25,7 @@ def home(request):
     
     # Pobieranie ID wybranego tagu z zapytania GET
     tag_id = request.GET.get('tag')
+    tours = Tour.objects.filter(tags__id=tag_id) if tag_id else Tour.objects.all()
     
     # Filtrowanie wycieczek na podstawie wybranego tagu, jeśli wybrano tag
     if tag_id:
@@ -35,14 +36,14 @@ def home(request):
     # Pobieranie wszystkich tagów do formularza
     tags = Tag.objects.all()
     
-    carousel_images = HeaderCarouselImage.objects.all()
+    header_carousel_images = HeaderCarouselImage.objects.all()
 
     # Przekazywanie postów, wycieczek oraz tagów do szablonu
     context = {
         'posts': posts,
         'tours': tours,
         'tags': tags,
-        'carousel_images': carousel_images,
+        'header_carousel_images': header_carousel_images,
     }
 
     return render(request, 'blog/home.html', context)

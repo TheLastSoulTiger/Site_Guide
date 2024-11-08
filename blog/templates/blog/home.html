@@ -17,27 +17,29 @@
 </head>
 <body>
     <header class="header">
-        {% comment %} Karuzela w headerze {% endcomment %}
-        <div id="headerCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                {% for carousel_image in header_carousel_images %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <img src="{{ carousel_image.image.url }}" class="d-block w-100" alt="{{ carousel_image.title }}">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>{{ carousel_image.title }}</h5>
-                        <p>{{ carousel_image.description }}</p>
+        <div class="carousel-container">
+            {% comment %} Karuzela w headerze {% endcomment %}
+            <div id="headerCarousel" class="carousel slide" data-ride="carousel" data-interval="10000">
+                <div class="carousel-inner">
+                    {% for carousel_image in header_carousel_images %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ carousel_image.image.url }}" class="d-block w-100" alt="{{ carousel_image.title }}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ carousel_image.title }}</h5>
+                            <p>{{ carousel_image.description }}</p>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+                <a class="carousel-control-prev" href="#headerCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#headerCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            <a class="carousel-control-prev" href="#headerCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#headerCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
         <div class="overlay">
             <h1 class="title">Личный гид</h1>

@@ -1,16 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Tour, Tag
+from .models import Post, Tour, Tag, HeaderCarouselImage
 from .forms import PostForm
 from .forms import ReviewForm
 from .forms import ContactForm
-from django.shortcuts import render
 from django.core.mail import send_mail
 from django.conf import settings
 from django.db.models import Q
 from django.core.paginator import Paginator
 
 
-def post_list(request):
+def search_post_list(request):
     posts = Post.objects.all()
     return render(request, 'blog/post_list.html', {'posts': posts})
 
@@ -36,15 +35,19 @@ def home(request):
     # Pobieranie wszystkich tagów do formularza
     tags = Tag.objects.all()
     
+    carousel_images = HeaderCarouselImage.objects.all()
+
     # Przekazywanie postów, wycieczek oraz tagów do szablonu
     context = {
         'posts': posts,
         'tours': tours,
         'tags': tags,
+        'carousel_images': carousel_images,
     }
-    
+
     return render(request, 'blog/home.html', context)
 
+   
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)

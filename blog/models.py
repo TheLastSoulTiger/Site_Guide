@@ -4,6 +4,14 @@ from django import forms
 from ckeditor.fields import RichTextField
 import datetime
 
+class HeaderCarouselImage(models.Model):
+    image = models.ImageField(upload_to='carousel_images/')
+    title = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title or "Image without title"
+
 class Tag(models.Model):
     name = models.CharField(max_length=100)
 

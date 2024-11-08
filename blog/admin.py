@@ -1,9 +1,11 @@
 from ckeditor.fields import RichTextField
 from ckeditor.widgets import CKEditorWidget
 from django.contrib import admin
-from .models import Post, Tour, TourImage, TourForm, Tag
+from .models import Post, Tour, TourImage, HeaderCarouselImage, TourForm, Tag
 from django import forms
 
+class HeaderCarouselImageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'image')
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_date')
@@ -53,4 +55,5 @@ class TourAdmin(admin.ModelAdmin):
 
 admin.site.register(Tour, TourAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(HeaderCarouselImage, HeaderCarouselImageAdmin)
     
